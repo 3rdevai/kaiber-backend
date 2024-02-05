@@ -18,6 +18,7 @@ export const createClient = async (req, res) => {
       success: true,
       client,
     });
+    console.log(client);
   } catch (error) {
     console.log(error);
     res.status(400);

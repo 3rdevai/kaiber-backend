@@ -4,6 +4,7 @@ import cors from "cors";
 import { connectDB } from "./config/db.js";
 import videoRoutes from "./routes/videoRoute.js";
 import clientRoutes from "./routes/clientRoute.js";
+import videoControlRouter from "./controller/firebaseLogic.js";
 import nodemailer from "nodemailer";
 
 dotenv.config();
@@ -18,6 +19,8 @@ app.use(express.json());
 
 // routes
 app.use("/api/clients", clientRoutes);
+
+app.use("/upload-video", videoControlRouter);
 
 app.use("/send-email", async (req, res) => {
   try {
