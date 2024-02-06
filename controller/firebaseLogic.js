@@ -9,6 +9,7 @@ import fs from "fs";
 import firebaseApp from "../config/firebase.js";
 import express from "express";
 import nodemailer from "nodemailer";
+import ClientModel from "../models/ClientModel.js";
 
 // Initialize Firebase
 
@@ -48,20 +49,34 @@ function toArrayBuffer(buffer) {
 
 router.get("/", async (req, res) => {
   try {
-    console.log("made it!!!")
-    console.log(req.query)
-    const filePath = req.query['video_path']
+    const clientUniqueId = req.query["uniqueId"];
+
+    const client = await ClientModel.findOne({
+      uniqueId: clientUniqueId,
+    });
+    if (!client) {
+      return res.status(404).json({
+        message: "Client not found",
+      });
+    }
+
+    console.log("made it!!!");
+    console.log(req.query);
+    const filePath = req.query["video_path"];
     const dateTime = giveCurrentDateTime();
-    const fileName = req.query['file_name']
+    const fileName = req.query["file_name"];
     const fileData = fs.readFileSync(filePath);
-    const storageRef = ref(storage, `snapshots/${fileName + "_" + dateTime + ".mp4"}`);
+    const storageRef = ref(
+      storage,
+      `snapshots/${fileName + "_" + dateTime + ".mp4"}`
+    );
 
     // Create file metadata including the content type
     const metadata = {
       contentType: "video/mp4",
     };
 
-    const fileDataBuffer = toArrayBuffer(fileData)
+    const fileDataBuffer = toArrayBuffer(fileData);
     // Upload the file in the bucket storage
     const snapshot = await uploadBytesResumable(storageRef, fileDataBuffer);
     //by using uploadBytesResumable we can control the progress of uploading like pause, resume, cancel
@@ -74,7 +89,8 @@ router.get("/", async (req, res) => {
 
     const mailOptions = {
       from: "brain@gmail.com",
-      to: "brian.kyounghoon.kim@gmail.com",
+      // to: "brian.kyounghoon.kim@gmail.com",
+      to: client.emailAddress,
       subject: "Sending Email using Node.js",
       text: `Hey Brian, That was easy!`,
       attachments: [
