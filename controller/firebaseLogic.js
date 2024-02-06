@@ -41,7 +41,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-router.post("/", upload.single("filename"), async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const filePath = "/path/to/your/file";
     const fileData = fs.readFileSync(filePath);
