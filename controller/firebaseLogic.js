@@ -6,23 +6,11 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import multer from "multer";
+import firebaseApp from "../config/firebase.js";
 import express from "express";
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: `${process.env.FIREBASE_API_KEY}`,
-  authDomain: "kaiber-upload-video.firebaseapp.com",
-  projectId: "kaiber-upload-video",
-  storageBucket: "kaiber-upload-video.appspot.com",
-  messagingSenderId: "788658960989",
-  appId: "1:788658960989:web:b9d3168a16a1ad4909abb4",
-};
+import nodemailer from "nodemailer";
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
 
 const router = express.Router();
 
@@ -43,6 +31,14 @@ const giveCurrentDateTime = () => {
 
   return dateTime;
 };
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "brian.kyounghoon.kim@gmail.com",
+    pass: "nzws cjsq yapl gcfw",
+  },
+});
 
 router.post("/", upload.single("filename"), async (req, res) => {
   try {
@@ -70,6 +66,28 @@ router.post("/", upload.single("filename"), async (req, res) => {
     const downloadURL = await getDownloadURL(snapshot.ref);
 
     console.log("File successfully uploaded.");
+
+    const mailOptions = {
+      from: "brain@gmail.com",
+      to: "brian.kyounghoon.kim@gmail.com",
+      subject: "Sending Email using Node.js",
+      text: `Hey Brian, That was easy!`,
+      attachments: [
+        {
+          filename: req.file.originalname,
+          path: downloadURL,
+        },
+      ],
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+
     return res.send({
       message: "file uploaded to firebase storage",
       name: req.file.originalname,

@@ -6,6 +6,7 @@ import videoRoutes from "./routes/videoRoute.js";
 import clientRoutes from "./routes/clientRoute.js";
 import videoControlRouter from "./controller/firebaseLogic.js";
 import nodemailer from "nodemailer";
+import ClientModel from "./models/ClientModel.js";
 
 dotenv.config();
 
@@ -22,39 +23,37 @@ app.use("/api/clients", clientRoutes);
 
 app.use("/upload-video", videoControlRouter);
 
-app.use("/send-email", async (req, res) => {
-  try {
-    const { firstName, email } = req.body;
+// const transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: "brian.kyounghoon.kim@gmail.com",
+//     pass: process.env.NODEMAILER_PW,
+//   },
+// });
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "brian.kyounghoon.kim@gmail.com",
-        pass: "nzws cjsq yapl gcfw",
-      },
-    });
+// const sendEmail = async () => {
+//   const mailOptions = {
+//     from: "brain@gmail.com",
+//     to: "brian.kyounghoon.kim@gmail.com",
+//     subject: "Sending Email using Node.js",
+//     text: "That was easy!",
+//   };
 
-    await transporter.sendMail({
-      from: "brian.kyounghoon.kim@gmail.com",
-      to: email,
-      subject: "Hello world",
-      text: `Hello ${firstName},\n\nThis is a test email.`,
-    });
+//   transporter.sendMail(mailOptions, function (error, info) {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       console.log("Email sent: " + info.response);
+//     }
+//   });
+// };
 
-    res.status(200).json({ message: "Email sent successfully" });
-  } catch (error) {
-    console.error("Error sending email:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
+// sendEmail();
+
 app.use("/api/videos", videoRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
-});
-
-app.get("/api/clients", (req, res) => {
-  res.json(req.body);
 });
 
 // listen to request
