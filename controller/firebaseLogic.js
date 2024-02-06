@@ -6,7 +6,6 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import fs from "fs";
-import multer from "multer";
 import firebaseApp from "../config/firebase.js";
 import express from "express";
 import nodemailer from "nodemailer";
@@ -16,9 +15,6 @@ import nodemailer from "nodemailer";
 const router = express.Router();
 
 const storage = getStorage(firebaseApp);
-
-// handle multer as middleware to upload videos
-const upload = multer({ storage: multer.memoryStorage() });
 
 const giveCurrentDateTime = () => {
   const today = new Date();
