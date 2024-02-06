@@ -37,23 +37,27 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-router.post("/", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const filePath = "/path/to/your/file";
+    console.log("made it!!!")
+    console.log(req.query)
+    const filePath = req.query['video_path']
+    // const filePath = "/path/to/your/file";
     const fileData = fs.readFileSync(filePath);
 
     const dateTime = giveCurrentDateTime();
-    const fileName = "1234.mp4";
+    const fileName = req.query['file_name']
+    // const fileName = "1234";
 
-    const storageRef = ref(storage, `snapshots/${fileName + " " + dateTime}`);
+    const storageRef = ref(storage, `snapshots/${fileName + "_" + dateTime + ".mp4"}`);
 
     // Create file metadata including the content type
     const metadata = {
-      contentType: req.file.mimetype,
+      contentType: "video/mp4",
     };
 
     // Upload the file in the bucket storage
-    const snapshot = await uploadBytesResumable(storageRef, fileData, metadata);
+    const snapshot = await uploadBytesResumable(storageRef, fileData);
     //by using uploadBytesResumable we can control the progress of uploading like pause, resume, cancel
 
     // Grab the public url
@@ -61,26 +65,26 @@ router.post("/", async (req, res) => {
 
     console.log("File successfully uploaded.");
 
-    const mailOptions = {
-      from: "brain@gmail.com",
-      to: "brian.kyounghoon.kim@gmail.com",
-      subject: "Sending Email using Node.js",
-      text: `Hey Brian, That was easy!`,
-      attachments: [
-        {
-          filename: req.file.originalname,
-          path: downloadURL,
-        },
-      ],
-    };
+    // const mailOptions = {
+    //   from: "brain@gmail.com",
+    //   to: "brian.kyounghoon.kim@gmail.com",
+    //   subject: "Sending Email using Node.js",
+    //   text: `Hey Brian, That was easy!`,
+    //   attachments: [
+    //     {
+    //       filename: req.file.originalname,
+    //       path: downloadURL,
+    //     },
+    //   ],
+    // };
 
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Email sent: " + info.response);
-      }
-    });
+    // transporter.sendMail(mailOptions, function (error, info) {
+    //   if (error) {
+    //     console.log(error);
+    //   } else {
+    //     console.log("Email sent: " + info.response);
+    //   }
+    // });
 
     return res.send({
       message: "file uploaded to firebase storage",
