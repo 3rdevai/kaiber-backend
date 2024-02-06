@@ -16,14 +16,12 @@ export const createClient = async (req, res) => {
       emailAddress,
     });
 
-    // res.status(201).json({
-    //   success: true,
-    //   client,
-    // });
-    // console.log(client);
 
-    // TODO: CREATE UNIQUE VIDEO ID
     let uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2);
+    // TODO: CREATE MONGODB RECORD HERE
+    // somthing like mongo.addRecord(id: uniqueId, name: clientName, email: emailAddress)
+
+
     try {
       // touchdesigner is running on localhost 9980
       await axios.post("http://localhost:9980", {

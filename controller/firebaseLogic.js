@@ -70,26 +70,28 @@ router.get("/", async (req, res) => {
 
     console.log("File successfully uploaded.");
 
-    // const mailOptions = {
-    //   from: "brain@gmail.com",
-    //   to: "brian.kyounghoon.kim@gmail.com",
-    //   subject: "Sending Email using Node.js",
-    //   text: `Hey Brian, That was easy!`,
-    //   attachments: [
-    //     {
-    //       filename: req.file.originalname,
-    //       path: downloadURL,
-    //     },
-    //   ],
-    // };
+    // QUERY MONGODB USING THE "ID" FIELD. FROM CLIENTCONTROLLER.JS L20.
 
-    // transporter.sendMail(mailOptions, function (error, info) {
-    //   if (error) {
-    //     console.log(error);
-    //   } else {
-    //     console.log("Email sent: " + info.response);
-    //   }
-    // });
+    const mailOptions = {
+      from: "brain@gmail.com",
+      to: "brian.kyounghoon.kim@gmail.com",
+      subject: "Sending Email using Node.js",
+      text: `Hey Brian, That was easy!`,
+      attachments: [
+        {
+          filename: "NBALABSxKAIBER.mp4",
+          path: downloadURL,
+        },
+      ],
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
 
     return res.send({
       message: "file uploaded to firebase storage",
