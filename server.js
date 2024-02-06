@@ -44,33 +44,6 @@ app.use("/create-video", async(req, res) => {
   }
 })
 
-// const transporter = nodemailer.createTransport({
-//   service: "gmail",
-//   auth: {
-//     user: "brian.kyounghoon.kim@gmail.com",
-//     pass: process.env.NODEMAILER_PW,
-//   },
-// });
-
-// const sendEmail = async () => {
-//   const mailOptions = {
-//     from: "brain@gmail.com",
-//     to: "brian.kyounghoon.kim@gmail.com",
-//     subject: "Sending Email using Node.js",
-//     text: "That was easy!",
-//   };
-
-//   transporter.sendMail(mailOptions, function (error, info) {
-//     if (error) {
-//       console.log(error);
-//     } else {
-//       console.log("Email sent: " + info.response);
-//     }
-//   });
-// };
-
-// sendEmail();
-
 app.use("/api/videos", videoRoutes);
 
 app.get("/", (req, res) => {
