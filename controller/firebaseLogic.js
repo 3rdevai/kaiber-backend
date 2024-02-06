@@ -5,6 +5,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import fs from "fs";
 import multer from "multer";
 import firebaseApp from "../config/firebase.js";
 import express from "express";
@@ -42,12 +43,13 @@ const transporter = nodemailer.createTransport({
 
 router.post("/", upload.single("filename"), async (req, res) => {
   try {
-    const dateTime = giveCurrentDateTime();
+    const filePath = "/path/to/your/file";
+    const fileData = fs.readFileSync(filePath);
 
-    const storageRef = ref(
-      storage,
-      `files/${req.file.originalname + "       " + dateTime}`
-    );
+    const dateTime = giveCurrentDateTime();
+    const fileName = "1234.mp4";
+
+    const storageRef = ref(storage, `snapshots/${fileName + " " + dateTime}`);
 
     // Create file metadata including the content type
     const metadata = {
@@ -55,11 +57,7 @@ router.post("/", upload.single("filename"), async (req, res) => {
     };
 
     // Upload the file in the bucket storage
-    const snapshot = await uploadBytesResumable(
-      storageRef,
-      req.file.buffer,
-      metadata
-    );
+    const snapshot = await uploadBytesResumable(storageRef, fileData, metadata);
     //by using uploadBytesResumable we can control the progress of uploading like pause, resume, cancel
 
     // Grab the public url
