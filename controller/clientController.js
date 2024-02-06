@@ -2,6 +2,7 @@ import ClientModel from "../models/ClientModel.js";
 
 export const createClient = async (req, res) => {
   const { clientName, emailAddress } = req.body;
+  console.log(req.body);
 
   if (!clientName || !emailAddress) {
     res.status(400);

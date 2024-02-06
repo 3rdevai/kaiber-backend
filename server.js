@@ -5,8 +5,6 @@ import { connectDB } from "./config/db.js";
 import videoRoutes from "./routes/videoRoute.js";
 import clientRoutes from "./routes/clientRoute.js";
 import videoControlRouter from "./controller/firebaseLogic.js";
-import nodemailer from "nodemailer";
-import ClientModel from "./models/ClientModel.js";
 
 dotenv.config();
 

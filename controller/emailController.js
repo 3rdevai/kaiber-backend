@@ -1,7 +1,5 @@
 import nodemailer from "nodemailer";
 
-router.get("/", getClient);
-
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
