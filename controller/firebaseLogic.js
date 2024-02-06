@@ -37,18 +37,23 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+function toArrayBuffer(buffer) {
+  const arrayBuffer = new ArrayBuffer(buffer.length);
+  const view = new Uint8Array(arrayBuffer);
+  for (let i = 0; i < buffer.length; ++i) {
+    view[i] = buffer[i];
+  }
+  return arrayBuffer;
+}
+
 router.get("/", async (req, res) => {
   try {
     console.log("made it!!!")
     console.log(req.query)
     const filePath = req.query['video_path']
-    // const filePath = "/path/to/your/file";
-    const fileData = fs.readFileSync(filePath);
-
     const dateTime = giveCurrentDateTime();
     const fileName = req.query['file_name']
-    // const fileName = "1234";
-
+    const fileData = fs.readFileSync(filePath);
     const storageRef = ref(storage, `snapshots/${fileName + "_" + dateTime + ".mp4"}`);
 
     // Create file metadata including the content type
@@ -56,10 +61,10 @@ router.get("/", async (req, res) => {
       contentType: "video/mp4",
     };
 
+    const fileDataBuffer = toArrayBuffer(fileData)
     // Upload the file in the bucket storage
-    const snapshot = await uploadBytesResumable(storageRef, fileData);
+    const snapshot = await uploadBytesResumable(storageRef, fileDataBuffer);
     //by using uploadBytesResumable we can control the progress of uploading like pause, resume, cancel
-
     // Grab the public url
     const downloadURL = await getDownloadURL(snapshot.ref);
 
@@ -88,8 +93,8 @@ router.get("/", async (req, res) => {
 
     return res.send({
       message: "file uploaded to firebase storage",
-      name: req.file.originalname,
-      type: req.file.mimetype,
+      // name: req.file.originalname,
+      // type: req.file.mimetype,
       downloadURL: downloadURL,
     });
   } catch (error) {
