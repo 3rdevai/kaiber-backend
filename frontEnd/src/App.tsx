@@ -15,7 +15,7 @@ function App() {
     setState("loading");
 
     try {
-      await Axios.post("http://192.168.1.115:8080/api/clients", {
+      await Axios.post("http://localhost:8080/api/clients", {
         clientName: name,
         emailAddress: email,
       });
@@ -35,7 +35,7 @@ function App() {
           <input
             className="Name"
             type="text"
-            placeholder="name..."
+            placeholder="Enter your name"
             onChange={(e) => {
               setName(e.target.value);
             }}
@@ -46,7 +46,7 @@ function App() {
           <input
             className="email"
             type="text"
-            placeholder="email..."
+            placeholder="Enter your email"
             onChange={(e) => {
               setEmail(e.target.value);
             }}

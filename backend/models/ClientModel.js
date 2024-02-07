@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { nanoid } from "nanoid";
 
 // let uniqueId =
 //   Date.now().toString(36) + Math.random().toString(36).substring(2);
@@ -7,8 +8,9 @@ const clientSchema = new mongoose.Schema(
   {
     uniqueId: {
       type: String,
-      unique: true, // Ensure uniqueness
       required: true,
+      default: () => nanoid(7),
+      index: { unique: true },
     },
     clientName: {
       type: String,
@@ -21,13 +23,5 @@ const clientSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-clientSchema.pre("save", function (next) {
-  if (!this.uniqueId) {
-    this.uniqueId =
-      Date.now().toString(36) + Math.random().toString(36).substring(2);
-  }
-  next();
-});
 
 export default mongoose.model("clients", clientSchema);

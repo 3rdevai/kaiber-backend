@@ -1,5 +1,5 @@
 .app-container {
-  background-color: #1d1d1d;
+  background-color: #121212;
   position: fixed;
   height: 100%;
   width: 100%;
@@ -10,16 +10,51 @@
 }
 
 .mail-container {
-  border: #8ad498 solid 8px;
+  background-color: #eaeaea32;
   border-radius: 24px;
-  width: 32rem;
-  height: 16rem;
+  width: 28rem;
+  height: 20rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  font-size: 24px;
+  padding: 2.5rem 3rem;
 }
 
-.name-form input {
-  height: 20px;
+.name-form,
+.email-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+label {
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+input {
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-bottom: #ffffff solid 2px;
+  color: white;
+  font-size: 24px;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  background-color: #8ad498;
+  border: none;
+  height: 48px;
+  border-radius: 24px;
+  font-size: 24px;
+  font-weight: 700;
+  width: 100%;
+  cursor: pointer;
 }
