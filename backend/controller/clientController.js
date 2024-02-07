@@ -16,23 +16,21 @@ export const createClient = async (req, res) => {
       emailAddress,
     });
 
-
-    let uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2);
+    let uniqueId =
+      Date.now().toString(36) + Math.random().toString(36).substring(2);
     // TODO: CREATE MONGODB RECORD HERE
     // somthing like mongo.addRecord(id: uniqueId, name: clientName, email: emailAddress)
-
 
     try {
       // touchdesigner is running on localhost 9980
       await axios.post("http://localhost:9980", {
-        video_id: uniqueId
+        video_id: uniqueId,
       });
-      res.status(200).send("successful")
+      res.status(200).send("successful");
     } catch (error) {
       console.error("Error creating video:", error);
       res.status(500).json({ error: "Internal server error" });
     }
-
   } catch (error) {
     console.log(error);
     res.status(400);
