@@ -3,7 +3,6 @@ import "./App.css";
 import Axios from "axios";
 import gsap from "gsap";
 import shutter from "../public/images/shutter.svg";
-import Email from "./Components/Email";
 
 const backend_ip = "192.168.1.115:8080";
 
