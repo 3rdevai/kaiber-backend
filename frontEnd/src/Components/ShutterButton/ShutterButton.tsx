@@ -12,6 +12,7 @@ import shutter from "../../images/shutter.svg";
 import "./ShutterButton.css";
 
 const backend_ip = "192.168.1.115:8080";
+// const local_backend = "localhost:8080";
 
 interface shutterButtonProps {
   formClick: boolean;
@@ -51,15 +52,15 @@ const ShutterButton = (props: shutterButtonProps) => {
 
       e.preventDefault();
 
-      // try {
-      //   await Axios.post("http://localhost:8080/api/clients", {
-      //     clientName: props.name,
-      //     emailAddress: props.email,
-      //   });
-      //   setTimeout(() => {}, 1500);
-      // } catch (error) {
-      //   console.log(error);
-      // }
+      try {
+        await Axios.post(`http://${backend_ip}/api/clients`, {
+          clientName: props.name,
+          emailAddress: props.email,
+        });
+        setTimeout(() => {}, 1500);
+      } catch (error) {
+        console.log(error);
+      }
       if (showProgress) {
         progressWindowRef.current.style.visibility = "visible";
         gsap.to(shutterButtonRef.current, {
