@@ -91,8 +91,74 @@ router.get("/", async (req, res) => {
       from: "brain@gmail.com",
       // to: "brian.kyounghoon.kim@gmail.com",
       to: client.emailAddress,
-      subject: "Sending Email using Node.js",
-      text: `Hey Brian, That was easy!`,
+      subject: "NBALABs X Kaiber",
+      html: `
+      <style>
+    .email-container {
+  background: white;
+  color: black;
+  max-width: 640px;
+  font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .header {
+  img {
+  width: 30rem;
+  }
+  }
+
+  .email-img {
+  img {
+  width: 40rem;
+  margin: 0;
+  }
+  }
+  .email-words {
+  margin: 0rem 2rem;
+
+  h1 {
+  font-size: 36px;
+  }
+  p {
+  margin: 0;
+  font-size: 18px;
+  }
+
+  .kaiber-description {
+  color: #7c7c7c;
+  font-size: 12px;
+  margin: 2rem 0rem;
+  }
+  }
+</style>
+<div class="email-container">
+  <div class="header">
+    <img src="../assets/emailHeader.png" alt="" />
+  </div>
+  <div class="email-img">
+    <img src="../assets//emailImage.jpg" alt="" />
+  </div>
+  <div class="email-words">
+    <h1>Hey ${client.clientName},</h1>
+    <p>Thank you for your experience with Kaiber snapshot!</p>
+    <br />
+    <p>
+      We've attached your video to this email. Hope you enjoy the video and
+      visit our site Kaiber.ai!
+    </p>
+
+    <p class="kaiber-description">
+      Kaiber is an AI creative lab on a mission to empower people everywhere to
+      discover the artist within. We help creatives tell stories in a whole new
+      way through our generative art platform and creative studio. From music
+      videos and social media content to live event visuals and beyond, Kaiber
+      can transform your ideas into captivating multimedia experiences with
+      ease.
+    </p>
+  </div>
+</div>
+
+      `,
       attachments: [
         {
           filename: "NBALABSxKAIBER.mp4",
