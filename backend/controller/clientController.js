@@ -1,5 +1,6 @@
 import ClientModel from "../models/ClientModel.js";
 import axios from "axios";
+import { nanoid } from "nanoid";
 
 export const createClient = async (req, res) => {
   const { clientName, emailAddress } = req.body;
@@ -11,15 +12,13 @@ export const createClient = async (req, res) => {
   }
 
   try {
+    let uniqueId = nanoid(7);
+    
     const client = await ClientModel.create({
-      clientName,
-      emailAddress,
+      clientName: clientName,
+      emailAddress: emailAddress,
+      uniqueId: uniqueId,
     });
-
-    let uniqueId =
-      Date.now().toString(36) + Math.random().toString(36).substring(2);
-    // TODO: CREATE MONGODB RECORD HERE
-    // somthing like mongo.addRecord(id: uniqueId, name: clientName, email: emailAddress)
 
     try {
       // touchdesigner is running on localhost 9980

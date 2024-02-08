@@ -30,19 +30,19 @@ app.use("/send-video", async (req, res) => {
   res.status(200).send("success");
 });
 
-app.use("/create-video", async (req, res) => {
-  console.log(req.body.video_id);
-  try {
-    // touchdesigner is running on localhost 9980
-    await axios.post("http://localhost:9980", {
-      video_id: req.body.video_id,
-    });
-    res.status(200).send("successful");
-  } catch (error) {
-    console.error("Error creating video:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
+// app.use("/create-video", async (req, res) => {
+//   console.log(req.body.video_id);
+//   try {
+//     // touchdesigner is running on localhost 9980
+//     await axios.post("http://localhost:9980", {
+//       video_id: req.body.video_id,
+//     });
+//     res.status(200).send("successful");
+//   } catch (error) {
+//     console.error("Error creating video:", error);
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// });
 
 app.use("/api/videos", videoRoutes);
 

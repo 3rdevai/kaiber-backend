@@ -49,7 +49,10 @@ function toArrayBuffer(buffer) {
 
 router.get("/", async (req, res) => {
   try {
-    const clientUniqueId = req.query["uniqueId"];
+    console.log("made it!!!");
+    const clientUniqueId = req.query["file_name"];
+
+    console.log(clientUniqueId)
 
     const client = await ClientModel.findOne({
       uniqueId: clientUniqueId,
@@ -59,8 +62,7 @@ router.get("/", async (req, res) => {
         message: "Client not found",
       });
     }
-
-    console.log("made it!!!");
+    
     console.log(req.query);
     const filePath = req.query["video_path"];
     const dateTime = giveCurrentDateTime();
@@ -91,7 +93,7 @@ router.get("/", async (req, res) => {
       from: "brain@gmail.com",
       // to: "brian.kyounghoon.kim@gmail.com",
       to: client.emailAddress,
-      subject: "NBALABs X Kaiber",
+      subject: "NBALAB X Kaiber",
       html: `
       <style>
     .email-container {
@@ -161,7 +163,7 @@ router.get("/", async (req, res) => {
       `,
       attachments: [
         {
-          filename: "NBALABSxKAIBER.mp4",
+          filename: "NBALABxKAIBER.mp4",
           path: downloadURL,
         },
       ],
