@@ -22,14 +22,18 @@ function App() {
         clientName: name,
         emailAddress: email,
       });
+      setTimeout(() => {
+        setState("Sent");
+        setFormClick(true);
+      }, 1500);
     } catch (error) {
+      if (error) {
+        setTimeout(() => {
+          setState("Send");
+        }, 1500);
+      }
       console.log(error);
     }
-
-    setTimeout(() => {
-      setState("Sent");
-      setFormClick(true);
-    }, 1500);
   };
 
   const mailFormRef = useRef<HTMLFormElement>(null);
@@ -134,6 +138,9 @@ function App() {
           ref={buttonRef}
           onPointerOver={pointerHover}
           onPointerLeave={pointerOut}
+          style={{
+            color: state === "Sending" ? "#597769" : "#000000",
+          }}
           onPointerDown={() => {
             if (!buttonRef.current) return;
             gsap.to(buttonRef.current, {
