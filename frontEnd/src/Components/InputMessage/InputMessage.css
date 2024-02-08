@@ -1,0 +1,8 @@
+.message-container {
+  position: fixed;
+  background-color: #444444;
+  border: white solid 4px;
+  padding: 1rem 7rem;
+  border-radius: 25rem;
+  visibility: hidden;
+}

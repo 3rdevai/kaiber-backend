@@ -10,6 +10,8 @@ import firebaseApp from "../config/firebase.js";
 import express from "express";
 import nodemailer from "nodemailer";
 import ClientModel from "../models/ClientModel.js";
+import headerImg from "../assets/emailHeader.png";
+import emailImg from "../assets/emailImage.jpg";
 
 // Initialize Firebase
 
@@ -52,7 +54,7 @@ router.get("/", async (req, res) => {
     console.log("made it!!!");
     const clientUniqueId = req.query["file_name"];
 
-    console.log(clientUniqueId)
+    console.log(clientUniqueId);
 
     const client = await ClientModel.findOne({
       uniqueId: clientUniqueId,
@@ -62,7 +64,7 @@ router.get("/", async (req, res) => {
         message: "Client not found",
       });
     }
-    
+
     console.log(req.query);
     const filePath = req.query["video_path"];
     const dateTime = giveCurrentDateTime();
@@ -135,10 +137,10 @@ router.get("/", async (req, res) => {
 </style>
 <div class="email-container">
   <div class="header">
-    <img src="../assets/emailHeader.png" alt="" />
+    <img src=${headerImg} alt="" />
   </div>
   <div class="email-img">
-    <img src="../assets//emailImage.jpg" alt="" />
+    <img src=${emailImg} alt="" />
   </div>
   <div class="email-words">
     <h1>Hey ${client.clientName},</h1>

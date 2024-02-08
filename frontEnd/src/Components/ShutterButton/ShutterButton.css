@@ -1,0 +1,63 @@
+.shutter-button {
+  position: fixed;
+  opacity: 0;
+  visibility: hidden;
+  button {
+    background: transparent;
+    padding: 0.5rem 8rem;
+    border: 5px #8ad498 solid;
+    border-radius: 10rem;
+    cursor: pointer;
+    /* background: #bcbcbc; */
+    box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.75);
+    img {
+      height: 80px;
+      width: 80px;
+    }
+  }
+}
+.progress-container {
+  position: fixed;
+  background-color: #8ad498;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 5rem;
+  border-radius: 25rem;
+  opacity: 0;
+  visibility: hidden;
+  h1 {
+    font-size: 36px;
+  }
+}
+
+.bouncing-loader {
+  display: flex;
+  justify-content: center;
+  transform: translateY(0.7rem);
+}
+
+.bouncing-loader > div {
+  width: 8px;
+  height: 8px;
+  margin: 3px 6px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  opacity: 1;
+  animation: bouncing-loader 0.6s infinite alternate;
+}
+
+@keyframes bouncing-loader {
+  to {
+    opacity: 0.1;
+    transform: translateY(-16px);
+  }
+}
+
+.bouncing-loader > div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.bouncing-loader > div:nth-child(3) {
+  animation-delay: 0.4s;
+}
