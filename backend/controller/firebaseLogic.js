@@ -84,10 +84,9 @@ router.get("/", async (req, res) => {
 
     console.log("File successfully uploaded.");
 
-    // QUERY MONGODB USING THE "ID" FIELD. FROM CLIENTCONTROLLER.JS L20.    
+    // QUERY MONGODB USING THE "ID" FIELD. FROM CLIENTCONTROLLER.JS L20.
     const mailOptions = {
       from: "brain@gmail.com",
-      // to: "brian.kyounghoon.kim@gmail.com",
       to: client.emailAddress,
       subject: "NBALAB X Kaiber",
       html: `

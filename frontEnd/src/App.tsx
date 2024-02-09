@@ -89,6 +89,12 @@ function App() {
     }
   }, [formClick]);
 
+  const [boxChecked, setBoxChecked] = useState<boolean>(false);
+
+  const checkBoxHandle = (e: any) => {
+    setBoxChecked(e.target.checked);
+  };
+
   useEffect(() => {
     if (!mailFormRef.current) return;
     if (initForm) {
@@ -145,14 +151,22 @@ function App() {
               }}
             />
           </div>
+          <div className="checkbox-form">
+            <input type="checkbox" onChange={checkBoxHandle} />
+            <p>
+              I agree to receive communications from Kaiber. I understand I can
+              unsubscribe at any time. For more information, read our
+              <a href="https://kaiber.ai/privacy">Privacy Policy.</a>
+            </p>
+          </div>
           <button
             className="mail-button"
-            disabled={state === "loading"}
+            disabled={!boxChecked || state === "Sending"}
             ref={buttonRef}
             onPointerOver={pointerHover}
             onPointerLeave={pointerOut}
             style={{
-              color: state === "Sending" ? "#597769" : "#000000",
+              color: !boxChecked || state === "Sending" ? "#597769" : "#000000",
             }}
             onPointerDown={() => {
               if (!buttonRef.current) return;

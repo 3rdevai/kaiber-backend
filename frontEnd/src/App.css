@@ -48,6 +48,21 @@ input:focus {
   outline: none;
 }
 
+.checkbox-form {
+  display: flex;
+  align-items: flex-start;
+  p {
+    font-size: 14px;
+    margin-left: 1rem;
+    letter-spacing: 1px;
+    transform: translateY(-0.25rem);
+  }
+  a {
+    color: white;
+    margin-left: 0.25rem;
+  }
+}
+
 .mail-button {
   background-color: #8ad498;
   border: none;

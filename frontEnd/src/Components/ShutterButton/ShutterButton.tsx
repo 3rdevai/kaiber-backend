@@ -12,7 +12,6 @@ import shutter from "../../images/shutter.svg";
 import "./ShutterButton.css";
 
 const backend_ip = "192.168.1.115:8080";
-const local_backend = "localhost:8080";
 
 interface shutterButtonProps {
   formClick: boolean;
@@ -37,11 +36,36 @@ const ShutterButton = (props: shutterButtonProps) => {
     }
   }, [props.formClick]);
 
+  useEffect(() => {
+    if (!progressWindowRef.current) return;
+    if (showProgress) {
+      progressWindowRef.current.style.visibility = "visible";
+      gsap.to(shutterButtonRef.current, {
+        opacity: "0",
+        visibility: "hidden",
+      });
+      gsap.to(progressWindowRef.current, {
+        opacity: "1",
+        duration: 0.3,
+        onComplete: () => {
+          if (!progressWindowRef.current) return;
+          gsap.to(progressWindowRef.current, {
+            delay: 8,
+            opacity: "0",
+            onComplete: () => {
+              if (!progressWindowRef.current) return;
+              progressWindowRef.current.style.visibility = "hidden";
+              props.setInit(true);
+            },
+          });
+        },
+      });
+    }
+  }, [showProgress]);
+
   const handleShutterPointerUp = useCallback(
     async (e: SyntheticEvent) => {
       if (!shutterButtonRef.current) return;
-      if (!progressWindowRef.current) return;
-      if (!progressWindowRef.current) return;
 
       gsap.to(shutterButtonRef.current, {
         // opacity: "0",
@@ -63,32 +87,8 @@ const ShutterButton = (props: shutterButtonProps) => {
       } catch (error) {
         console.log(error);
       }
-
-      if (showProgress) {
-        progressWindowRef.current.style.visibility = "visible";
-        gsap.to(shutterButtonRef.current, {
-          opacity: "0",
-          visibility: "hidden",
-        });
-        gsap.to(progressWindowRef.current, {
-          opacity: "1",
-          duration: 0.3,
-          onComplete: () => {
-            if (!progressWindowRef.current) return;
-            gsap.to(progressWindowRef.current, {
-              delay: 8,
-              opacity: "0",
-              onComplete: () => {
-                if (!progressWindowRef.current) return;
-                progressWindowRef.current.style.visibility = "hidden";
-                props.setInit(true);
-              },
-            });
-          },
-        });
-      }
     },
-    [showProgress, props]
+    [props]
   );
 
   return (
@@ -103,6 +103,7 @@ const ShutterButton = (props: shutterButtonProps) => {
       </div>
       <div className="shutter-button" ref={shutterButtonRef}>
         <button
+          onClick={handleShutterPointerUp}
           onPointerDown={() => {
             if (!shutterButtonRef.current) return;
             gsap.to(shutterButtonRef.current, {
@@ -110,7 +111,13 @@ const ShutterButton = (props: shutterButtonProps) => {
               duration: 0.2,
             });
           }}
-          onPointerUp={handleShutterPointerUp}
+          onPointerUp={() => {
+            if (!shutterButtonRef.current) return;
+            gsap.to(shutterButtonRef.current, {
+              scale: 0.95,
+              duration: 0.2,
+            });
+          }}
         >
           <img src={shutter} alt="" />
         </button>
