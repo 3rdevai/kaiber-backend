@@ -50,10 +50,12 @@ const ShutterButton = (props: shutterButtonProps) => {
         onComplete: () => setShowProgress(true),
       });
 
+      console.log("shutter up");
+
       e.preventDefault();
 
       try {
-        await Axios.post(`http://${backend_ip}/api/email`, {
+        await Axios.post(`http://${backend_ip}/upload-video`, {
           clientName: props.name,
           emailAddress: props.email,
         });
@@ -61,6 +63,7 @@ const ShutterButton = (props: shutterButtonProps) => {
       } catch (error) {
         console.log(error);
       }
+
       if (showProgress) {
         progressWindowRef.current.style.visibility = "visible";
         gsap.to(shutterButtonRef.current, {

@@ -1,6 +1,9 @@
 .shutter-button {
   position: fixed;
-  opacity: 0;
+  opacity: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   visibility: hidden;
   button {
     background: transparent;
@@ -18,6 +21,9 @@
 }
 .progress-container {
   position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: #8ad498;
   display: flex;
   justify-content: center;
