@@ -55,7 +55,7 @@ const ShutterButton = (props: shutterButtonProps) => {
       e.preventDefault();
 
       try {
-        await Axios.post(`http://${backend_ip}/upload-video`, {
+        await Axios.post(`http://${backend_ip}/api/clients`, {
           clientName: props.name,
           emailAddress: props.email,
         });

@@ -50,10 +50,7 @@ function toArrayBuffer(buffer) {
 
 router.get("/", async (req, res) => {
   try {
-    console.log("made it!!!");
     const clientUniqueId = req.query["file_name"];
-
-    console.log(clientUniqueId);
 
     const client = await ClientModel.findOne({
       uniqueId: clientUniqueId,
@@ -64,7 +61,6 @@ router.get("/", async (req, res) => {
       });
     }
 
-    console.log(req.query);
     const filePath = req.query["video_path"];
     const dateTime = giveCurrentDateTime();
     const fileName = req.query["file_name"];
@@ -88,8 +84,7 @@ router.get("/", async (req, res) => {
 
     console.log("File successfully uploaded.");
 
-    // QUERY MONGODB USING THE "ID" FIELD. FROM CLIENTCONTROLLER.JS L20.
-
+    // QUERY MONGODB USING THE "ID" FIELD. FROM CLIENTCONTROLLER.JS L20.    
     const mailOptions = {
       from: "brain@gmail.com",
       // to: "brian.kyounghoon.kim@gmail.com",
@@ -97,30 +92,27 @@ router.get("/", async (req, res) => {
       subject: "NBALAB X Kaiber",
       html: `
       <div class="email-container" style="background-color: white; max-width: 640px; position: fixed; font-family: Helvetica; color: black;">
-    <div class="header">
-      <img src="cid:headerImg" alt="" style="width: 30rem;"/>
-    </div>
-    <div class="email-img">
-      <img src="cid:emailImg" alt="" style="width: 40rem;"/>
-    </div>
-    <div class="email-words" style="margin: 0rem 2rem;">
-      <h1 style="font-size: 36px;">Hey Brian,</h1>
-      <p style="margin: 0; font-size: 18px;">Thank you for your experience with Kaiber snapshot!</p>
-      <p style="margin: 0; font-size: 18px;">
-      We've attached your video to this email. Hope you enjoy the video and
-      visit our site Kaiber.ai!
-      </p>
-      <p class="kaiber-description" style="color: #7c7c7c; font-size: 12px; margin: 2rem 0rem;">
-        Kaiber is an AI creative lab on a mission to empower people everywhere to
-        discover the artist within. We help creatives tell stories in a whole new
-        way through our generative art platform and creative studio. From music
-        videos and social media content to live event visuals and beyond, Kaiber
-        can transform your ideas into captivating multimedia experiences with
-        ease.
-      </p>
-    </div>
-  </div>
-
+        <div class="header">
+          <img src="cid:headerImg" alt="" style="width: 30rem;"/>
+        </div>
+        <div class="email-img">
+          <img src="cid:emailImg" alt="" style="width: 40rem;"/>
+        </div>
+        <div class="email-words" style="margin: 0rem 2rem;">
+          <h1 style="font-size: 32px;">Hey ${client.clientName},</h1>
+          <p style="margin: 0; font-size: 18px;">
+            Thanks for checking out our booth at the NBA Crossover Event! We've attached your video from our live experience to this email. Enjoy the rest of the event! You can learn more about Kaiber at our website, Kaiber.ai.
+          </p>
+          <p class="kaiber-description" style="color: #7c7c7c; font-size: 12px; margin: 2rem 0rem;">
+            Kaiber is an AI creative lab on a mission to empower people everywhere to
+            discover the artist within. We help creatives tell stories in a whole new
+            way through our generative art platform and creative studio. From music
+            videos and social media content to live event visuals and beyond, Kaiber
+            can transform your ideas into captivating multimedia experiences with
+            ease.
+          </p>
+        </div>
+      </div>
       `,
       attachments: [
         {
@@ -129,12 +121,12 @@ router.get("/", async (req, res) => {
         },
         {
           filename: "emailHeader.png",
-          path: "../assets/emailHeader.png",
+          path: "../backend/assets/emailHeader.png",
           cid: "headerImg",
         },
         {
           filename: "emailImage.jpg",
-          path: "../assets/emailImage.jpg",
+          path: "../backend/assets/emailImage.jpg",
           cid: "emailImg",
         },
       ],
