@@ -107,7 +107,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <Email />
+      {/* <Email /> */}
       <InputMessage message={inputMessage} showMessage={showMessage} />
       <ShutterButton
         formClick={formClick}
