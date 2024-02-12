@@ -94,7 +94,7 @@ router.get("/", async (req, res) => {
       html: `
       <div class="email-container" style="background-color: white; max-width: 640px; position: fixed; font-family: Helvetica; color: black;">
         <div class="header">
-          <img src="cid:headerImg" alt="" style="margin: .75rem 0rem;  width: 16rem; transform: translateX(2rem);"/>
+        <img src="cid:headerImg" alt="" style="margin: .75rem 2.25rem;  width: 16rem; "/>
         </div>
         <div class="email-img">
           <img src="cid:emailImg" alt="" style="width: 40rem;"/>
@@ -124,8 +124,8 @@ router.get("/", async (req, res) => {
           path: downloadURL,
         },
         {
-          filename: "emailLogo.webp",
-          path: "../backend/assets/emailLogo.webp",
+          filename: "emailLogo.jpg",
+          path: "../backend/assets/emailLogo.jpg",
           cid: "headerImg",
         },
         {
