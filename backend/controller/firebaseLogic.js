@@ -124,7 +124,7 @@ router.get("/", async (req, res) => {
           path: downloadURL,
         },
         {
-          filename: "emailHeader.png",
+          filename: "emailLogo.webp",
           path: "../backend/assets/emailLogo.webp",
           cid: "headerImg",
         },
