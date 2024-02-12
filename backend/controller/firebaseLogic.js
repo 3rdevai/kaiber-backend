@@ -32,11 +32,13 @@ const giveCurrentDateTime = () => {
 };
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.postmarkapp.com",
+  port: 2525,
+  secure: false,
   auth: {
-    user: "brian.kyounghoon.kim@gmail.com",
-    pass: "nzws cjsq yapl gcfw",
-  },
+    user: "375c0274-22c1-4046-922d-b76805ef4fd7",
+    pass: "375c0274-22c1-4046-922d-b76805ef4fd7"
+  }
 });
 
 function toArrayBuffer(buffer) {
@@ -86,7 +88,7 @@ router.get("/", async (req, res) => {
 
     // QUERY MONGODB USING THE "ID" FIELD. FROM CLIENTCONTROLLER.JS L20.
     const mailOptions = {
-      from: "brain@gmail.com",
+      from: "marketing@kaiber.ai",
       to: client.emailAddress,
       subject: "NBALAB X Kaiber",
       html: `
@@ -130,12 +132,12 @@ router.get("/", async (req, res) => {
         },
       ],
     };
-
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
       } else {
         console.log("Email sent: " + info.response);
+        console.log(`Email sent to ${client.emailAddress}`)
       }
     });
 
