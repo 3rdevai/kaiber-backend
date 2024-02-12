@@ -102,7 +102,7 @@ router.get("/", async (req, res) => {
         <div class="email-words" style="margin: 0rem 2rem;">
           <h1 style="font-size: 32px;">Hey ${client.clientName},</h1>
           <p style="margin: 0; font-size: 18px;">
-            Thanks for checking out our booth at the NBA Crossover Event! We've attached your video from our live experience to this email. Enjoy the rest of the event! You can learn more about Kaiber at our website, Kaiber.ai.
+          Thanks for checking out our booth at NBA Crossover! We've attached your video from our live experience to this email. Enjoy the rest of the event! You can learn more about Kaiber at Kaiber.ai and learn more about NBALAB at NBALAB.com. 
           </p>
           <p class="kaiber-description" style="color: #7c7c7c; font-size: 12px; margin: 2rem 0rem;">
             Kaiber is an AI creative lab on a mission to empower people everywhere to
@@ -111,6 +111,9 @@ router.get("/", async (req, res) => {
             videos and social media content to live event visuals and beyond, Kaiber
             can transform your ideas into captivating multimedia experiences with
             ease.
+          </p>
+          <p class="kaiber-description" style="color: #7c7c7c; font-size: 12px; margin: 2rem 0rem;">
+            NBALAB is a disruptive research and development incubator focused on innovative design, imaginative concepts and strategic partnerships. The NBALAB experiments with a variety of consumer goods and collaborates with hand-picked companies and individuals who are making noise in their respective fields.
           </p>
         </div>
       </div>
