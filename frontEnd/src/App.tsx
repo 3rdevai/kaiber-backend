@@ -9,6 +9,7 @@ import "./App.css";
 import gsap from "gsap";
 import ShutterButton from "./Components/ShutterButton/ShutterButton";
 import InputMessage from "./Components/InputMessage/InputMessage";
+import emailLogo from "./assets/emailLogo.webp";
 
 // const backend_ip = "192.168.1.115:8080";
 
@@ -96,7 +97,6 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* <Email /> */}
       <InputMessage message={inputMessage} showMessage={showMessage} />
       <ShutterButton
         formClick={formClick}
@@ -110,6 +110,9 @@ function App() {
           onSubmit={handleSubmit}
           ref={mailFormRef}
         >
+          <div className="mail-header">
+            <img src={emailLogo} alt="" />
+          </div>
           <div className="name-form">
             <label htmlFor="name">Name:</label>
             <input

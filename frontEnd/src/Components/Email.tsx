@@ -1,4 +1,4 @@
-import headerImg from "../../public/images/emailHeader.png";
+import headerImg from "../assets/emailLogo.webp";
 import emailImg from "../../public/images/emailImage.jpg";
 import "./Email.css";
 
@@ -13,10 +13,19 @@ const Email = () => {
           position: "fixed",
           fontFamily: "Helvetica",
           color: "black",
+          zIndex: "2",
         }}
       >
         <div className="header">
-          <img src={headerImg} alt="" style={{ width: "30rem" }} />
+          <img
+            src={headerImg}
+            alt=""
+            style={{
+              width: "16rem",
+              margin: ".75rem 0rem",
+              transform: "translateX(2rem)",
+            }}
+          />
         </div>
         <div className="email-img">
           <img src={emailImg} alt="" style={{ width: "40rem" }} />

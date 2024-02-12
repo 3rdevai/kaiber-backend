@@ -37,8 +37,8 @@ const transporter = nodemailer.createTransport({
   secure: false,
   auth: {
     user: "375c0274-22c1-4046-922d-b76805ef4fd7",
-    pass: "375c0274-22c1-4046-922d-b76805ef4fd7"
-  }
+    pass: "375c0274-22c1-4046-922d-b76805ef4fd7",
+  },
 });
 
 function toArrayBuffer(buffer) {
@@ -94,7 +94,7 @@ router.get("/", async (req, res) => {
       html: `
       <div class="email-container" style="background-color: white; max-width: 640px; position: fixed; font-family: Helvetica; color: black;">
         <div class="header">
-          <img src="cid:headerImg" alt="" style="width: 30rem;"/>
+          <img src="cid:headerImg" alt="" style="margin: .75rem 0rem;  width: 16rem; transform: translateX(2rem);"/>
         </div>
         <div class="email-img">
           <img src="cid:emailImg" alt="" style="width: 40rem;"/>
@@ -125,7 +125,7 @@ router.get("/", async (req, res) => {
         },
         {
           filename: "emailHeader.png",
-          path: "../backend/assets/emailHeader.png",
+          path: "../backend/assets/emailLogo.webp",
           cid: "headerImg",
         },
         {
@@ -140,7 +140,7 @@ router.get("/", async (req, res) => {
         console.log(error);
       } else {
         console.log("Email sent: " + info.response);
-        console.log(`Email sent to ${client.emailAddress}`)
+        console.log(`Email sent to ${client.emailAddress}`);
       }
     });
 

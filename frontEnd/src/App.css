@@ -22,6 +22,15 @@
   padding: 2.5rem 3rem;
 }
 
+.mail-header {
+  position: fixed;
+  transform: translate(-6.25rem, -7rem);
+  img {
+    width: 16rem;
+    filter: invert(1);
+  }
+}
+
 .name-form,
 .email-form {
   display: flex;
