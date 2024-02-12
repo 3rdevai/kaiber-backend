@@ -5,4 +5,5 @@
   padding: 1rem 7rem;
   border-radius: 25rem;
   visibility: hidden;
+  z-index: 2;
 }

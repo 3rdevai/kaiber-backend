@@ -1,9 +1,14 @@
-import { SyntheticEvent, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  SyntheticEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import "./App.css";
 import gsap from "gsap";
 import ShutterButton from "./Components/ShutterButton/ShutterButton";
 import InputMessage from "./Components/InputMessage/InputMessage";
-import Email from "./Components/Email";
 
 // const backend_ip = "192.168.1.115:8080";
 
@@ -51,28 +56,6 @@ function App() {
     }
   };
 
-  const pointerHover = () => {
-    if (!buttonRef.current) return;
-
-    gsap.to(buttonRef.current, {
-      boxShadow: "0px 0px 10px 2px rgba(255,255,255,0.75)",
-      duration: 0.3,
-      ease: "power1.out",
-      backgroundColor: "#a6ebb3",
-    });
-  };
-
-  const pointerOut = () => {
-    if (!buttonRef.current) return;
-
-    gsap.to(buttonRef.current, {
-      boxShadow: "0px 0px 0px 0px rgba(0, 0, 0, 0.75)",
-      duration: 0.15,
-      ease: "power1.in",
-      backgroundColor: "#8ad498",
-    });
-  };
-
   useEffect(() => {
     if (!mailFormRef.current) return;
 
@@ -91,7 +74,7 @@ function App() {
 
   const [boxChecked, setBoxChecked] = useState<boolean>(false);
 
-  const checkBoxHandle = (e: any) => {
+  const checkBoxHandle = (e: ChangeEvent<HTMLInputElement>) => {
     setBoxChecked(e.target.checked);
   };
 
@@ -161,17 +144,29 @@ function App() {
           </div>
           <button
             className="mail-button"
-            disabled={!boxChecked || state === "Sending"}
+            disabled={
+              name === "" || email === "" || !boxChecked || state === "Sending"
+            }
             ref={buttonRef}
-            onPointerOver={pointerHover}
-            onPointerLeave={pointerOut}
             style={{
-              color: !boxChecked || state === "Sending" ? "#597769" : "#000000",
+              color:
+                name === "" ||
+                email === "" ||
+                !boxChecked ||
+                state === "Sending"
+                  ? "#597769"
+                  : "#000000",
             }}
             onPointerDown={() => {
               if (!buttonRef.current) return;
               gsap.to(buttonRef.current, {
-                scale: 0.95,
+                scale:
+                  name === "" ||
+                  email === "" ||
+                  !boxChecked ||
+                  state === "Sending"
+                    ? 1
+                    : 0.95,
                 duration: 0.2,
               });
             }}

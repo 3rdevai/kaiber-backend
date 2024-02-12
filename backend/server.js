@@ -115,9 +115,8 @@ app.use("/send-video", async (req, res) => {
 
 app.use("/api/videos", videoRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+// static html
+app.use(express.static("./dist"));
 
 // listen to request
 app.listen(port, () => {
